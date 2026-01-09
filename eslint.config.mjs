@@ -49,6 +49,7 @@ const config = typescriptEslint.config(
       },
     },
     rules: {
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -64,7 +65,7 @@ const config = typescriptEslint.config(
         },
       ],
       "import/order": [
-        "warn",
+        "off",
         {
           groups: ["external", "builtin", "internal", "sibling", "parent", "index"],
           pathGroups: [

@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MinusIcon, PlusIcon, TrashIcon } from "@/components/icons";
+import { calculateCartTotal, formatPrice } from "@/lib/utils";
 import { useCart } from "@/lib/cart-context";
-import { TrashIcon, PlusIcon, MinusIcon } from "@/components/icons";
-import { formatPrice, calculateCartTotal } from "@/lib/utils";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, toggleSelect, selectAll } =

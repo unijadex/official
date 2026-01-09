@@ -34,7 +34,7 @@ export function getInitialCart(): Cart {
       : null;
 
   if (storedCart) {
-    const parsed = JSON.parse(storedCart);
+    const parsed = JSON.parse(storedCart) as Partial<Cart>;
     return {
       items: parsed.items || [],
       subtotal: parsed.subtotal || 0,

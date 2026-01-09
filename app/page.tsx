@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { categories, featuredProducts, products } from "@/lib/data";
 import { ProductCard } from "@/components/ProductCard";
-import { featuredProducts, products, categories } from "@/lib/data";
-import { StarIcon, TruckIcon, CheckIcon } from "@/components/icons";
+import { CheckIcon, StarIcon, TruckIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "母婴之家 - 专注优质母婴产品",

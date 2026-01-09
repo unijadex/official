@@ -7,23 +7,24 @@ export const metadata: Metadata = {
   description: "浏览我们精选的母婴产品，包括玩具、图书、童装、喂养用品等",
 };
 
-export default function ProductsPage({
+export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { category?: string; sort?: string; search?: string };
+  searchParams: Promise<{ category?: string; sort?: string; search?: string }>;
 }) {
+  const params = await searchParams;
   let filteredProducts = [...products];
 
   // 按分类筛选
-  if (searchParams.category) {
+  if (params.category) {
     filteredProducts = filteredProducts.filter(
-      (p) => p.category === searchParams.category
+      (p) => p.category === params.category
     );
   }
 
   // 搜索筛选
-  if (searchParams.search) {
-    const searchTerm = searchParams.search.toLowerCase();
+  if (params.search) {
+    const searchTerm = params.search.toLowerCase();
     filteredProducts = filteredProducts.filter(
       (p) =>
         p.name.toLowerCase().includes(searchTerm) ||
@@ -34,8 +35,8 @@ export default function ProductsPage({
   }
 
   // 排序
-  if (searchParams.sort) {
-    switch (searchParams.sort) {
+  if (params.sort) {
+    switch (params.sort) {
       case "price-asc":
         filteredProducts.sort((a, b) => a.price - b.price);
         break;

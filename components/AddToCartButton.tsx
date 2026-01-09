@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Product } from "@/lib/types";
 import { useCart } from "@/lib/cart-context";
+import { Product } from "@/lib/types";
 import { ShoppingCartIcon } from "./icons";
 
 interface AddToCartButtonProps {

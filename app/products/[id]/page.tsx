@@ -1,22 +1,24 @@
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { getProductById, getRelatedProducts } from "@/lib/data";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { ProductCard } from "@/components/ProductCard";
-import { StarIcon, CheckIcon, TruckIcon } from "@/components/icons";
+import { CheckIcon, StarIcon, TruckIcon } from "@/components/icons";
 import { cn, formatPrice, getDiscountPercentage } from "@/lib/utils";
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
-  const product = getProductById(params.id);
+  const { id } = await params;
+  const product = getProductById(id);
 
   if (!product) {
     return {
@@ -30,14 +32,15 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductById(params.id);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params;
+  const product = getProductById(id);
 
   if (!product) {
     notFound();
   }
 
-  const relatedProducts = getRelatedProducts(params.id);
+  const relatedProducts = getRelatedProducts(id);
   const discount = product.originalPrice
     ? getDiscountPercentage(product.originalPrice, product.price)
     : 0;
@@ -49,15 +52,15 @@ export default function ProductPage({ params }: ProductPageProps) {
         <nav className="mb-8 text-sm">
           <ol className="flex items-center space-x-2 text-gray-500">
             <li>
-              <a href="/" className="hover:text-gray-900">
+              <Link href="/" className="hover:text-gray-900">
                 首页
-              </a>
+              </Link>
             </li>
             <li>/</li>
             <li>
-              <a href="/products" className="hover:text-gray-900">
+              <Link href="/products" className="hover:text-gray-900">
                 全部商品
-              </a>
+              </Link>
             </li>
             <li>/</li>
             <li className="text-gray-900">{product.name}</li>

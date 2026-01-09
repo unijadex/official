@@ -1,22 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
-import { UserIcon, TruckIcon, HeartIcon } from "@/components/icons";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { formatPrice } from "@/lib/utils";
+import { HeartIcon, TruckIcon, UserIcon } from "@/components/icons";
+import { CartItem } from "@/lib/types";
 
 interface Order {
   id: string;
   orderNumber: string;
-  items: any[];
+  items: CartItem[];
   status: string;
   total: number;
   createdAt: string;
 }
 
-export default function AccountPage() {
+function AccountContent() {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState(
     searchParams.get("tab") || "orders"
@@ -27,7 +28,7 @@ export default function AccountPage() {
     // Load orders from localStorage
     const storedOrders = localStorage.getItem("baby-orders");
     if (storedOrders) {
-      const parsedOrders = JSON.parse(storedOrders);
+      const parsedOrders = JSON.parse(storedOrders) as Order[];
       setOrders(parsedOrders);
     }
   }, []);
@@ -140,7 +141,7 @@ export default function AccountPage() {
                           </div>
 
                           <div className="space-y-3">
-                            {order.items.map((item: any) => (
+                            {order.items.map((item) => (
                               <div
                                 key={item.product.id}
                                 className="flex items-start space-x-4"
@@ -178,7 +179,7 @@ export default function AccountPage() {
 
                           <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
                             <div className="text-sm text-gray-600">
-                              共 {order.items.reduce((sum: number, item: any) => sum + item.quantity, 0)} 件商品
+                              共 {order.items.reduce((sum: number, item: CartItem) => sum + item.quantity, 0)} 件商品
                             </div>
                             <div className="text-right">
                               <p className="text-sm text-gray-600">
@@ -273,5 +274,17 @@ export default function AccountPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AccountPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="text-gray-500">加载中...</div>
+      </div>
+    }>
+      <AccountContent />
+    </Suspense>
   );
 }

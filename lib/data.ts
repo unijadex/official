@@ -43,7 +43,7 @@ export const products: Product[] = [
     originalPrice: 169,
     category: "toys",
     images: [
-      "https://images.unsplash.com/photo-1629276301820-0f3eedc29571?w=800",
+      "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=800",
     ],
     stock: 35,
     ageRange: "0-24个月",
@@ -66,7 +66,7 @@ export const products: Product[] = [
     originalPrice: 399,
     category: "toys",
     images: [
-      "https://images.unsplash.com/photo-1596464716786-c6a36749b5e8?w=800",
+      "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=800",
     ],
     stock: 20,
     ageRange: "6-36个月",
@@ -343,7 +343,7 @@ export const products: Product[] = [
     originalPrice: 119,
     category: "feeding",
     images: [
-      "https://images.unsplash.com/photo-1620231109648-302d04431752?w=800",
+      "https://images.unsplash.com/photo-1584811644165-33db3b146db5?w=800",
     ],
     stock: 180,
     ageRange: "0-6个月",

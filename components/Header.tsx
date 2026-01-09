@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
 import { categories } from "@/lib/data";
 import {
-  ShoppingCartIcon,
-  SearchIcon,
   MenuIcon,
+  SearchIcon,
+  ShoppingCartIcon,
   UserIcon,
 } from "./icons";
 

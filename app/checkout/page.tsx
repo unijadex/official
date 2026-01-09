@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/utils";
-import { TrashIcon } from "@/components/icons";
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
@@ -75,16 +74,12 @@ export default function CheckoutPage() {
     // Store order in localStorage
     const existingOrders = JSON.parse(
       localStorage.getItem("baby-orders") || "[]"
-    );
+    ) as any[];
     localStorage.setItem("baby-orders", JSON.stringify([order, ...existingOrders]));
 
     // Clear cart and redirect to success page
     clearCart();
     router.push(`/checkout/success?orderId=${order.id}`);
-  };
-
-  const handleRemoveItem = (productId: string) => {
-    router.push("/cart");
   };
 
   return (
@@ -261,7 +256,7 @@ export default function CheckoutPage() {
                         >
                           {item.product.name}
                         </Link>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-gray-500">
                           数量: {item.quantity}
                         </p>
                       </div>

@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { CheckIcon } from "@/components/icons";
 
-export default function CheckoutSuccessPage() {
-  const router = useRouter();
+function CheckoutSuccessContent() {
   const searchParams = useSearchParams();
   const [orderNumber, setOrderNumber] = useState("");
 
@@ -14,8 +13,8 @@ export default function CheckoutSuccessPage() {
     const orderId = searchParams.get("orderId");
     if (orderId) {
       // Get order from localStorage
-      const orders = JSON.parse(localStorage.getItem("baby-orders") || "[]");
-      const order = orders.find((o: any) => o.id === orderId);
+      const orders = JSON.parse(localStorage.getItem("baby-orders") || "[]") as Array<{ id: string; orderNumber: string }>;
+      const order = orders.find((o) => o.id === orderId);
       if (order) {
         setOrderNumber(order.orderNumber);
       }
@@ -72,5 +71,17 @@ export default function CheckoutSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="text-gray-500">加载中...</div>
+      </div>
+    }>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }
