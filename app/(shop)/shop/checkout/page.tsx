@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -24,8 +25,17 @@ export default function CheckoutPage() {
 
   const selectedItems = cart.items.filter((item) => item.selected);
 
-  if (selectedItems.length === 0) {
-    router.push("/cart");
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && selectedItems.length === 0) {
+      router.push("/shop/cart");
+    }
+  }, [mounted, selectedItems.length, router]);
+
+  if (!mounted || selectedItems.length === 0) {
     return null;
   }
 
@@ -72,14 +82,16 @@ export default function CheckoutPage() {
     };
 
     // Store order in localStorage
-    const existingOrders = JSON.parse(
-      localStorage.getItem("baby-orders") || "[]"
-    ) as any[];
-    localStorage.setItem("baby-orders", JSON.stringify([order, ...existingOrders]));
+    if (typeof window !== "undefined") {
+      const existingOrders = JSON.parse(
+        localStorage.getItem("baby-orders") || "[]"
+      ) as any[];
+      localStorage.setItem("baby-orders", JSON.stringify([order, ...existingOrders]));
+    }
 
     // Clear cart and redirect to success page
     clearCart();
-    router.push(`/checkout/success?orderId=${order.id}`);
+    router.push(`/shop/shop/checkout/success?orderId=${order.id}`);
   };
 
   return (
@@ -239,7 +251,7 @@ export default function CheckoutPage() {
                       className="flex items-start space-x-4"
                     >
                       <Link
-                        href={`/products/${item.product.id}`}
+                        href={`/shop/products/${item.product.id}`}
                         className="relative w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-gray-100"
                       >
                         <Image
@@ -251,7 +263,7 @@ export default function CheckoutPage() {
                       </Link>
                       <div className="flex-1 min-w-0">
                         <Link
-                          href={`/products/${item.product.id}`}
+                          href={`/shop/products/${item.product.id}`}
                           className="font-medium text-gray-900 hover:text-blue-600 line-clamp-2"
                         >
                           {item.product.name}
@@ -315,7 +327,7 @@ export default function CheckoutPage() {
                 </button>
 
                 <Link
-                  href="/cart"
+                  href="/shop/cart"
                   className="block text-center text-blue-600 hover:text-blue-700 text-sm mt-4"
                 >
                   返回购物车

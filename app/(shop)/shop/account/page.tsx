@@ -107,7 +107,7 @@ function AccountContent() {
                     <div className="text-5xl mb-4">📦</div>
                     <p className="text-gray-500 mb-4">您还没有订单</p>
                     <Link
-                      href="/products"
+                      href="/shop/products"
                       className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                     >
                       去购物
@@ -262,7 +262,7 @@ function AccountContent() {
                   <div className="text-5xl mb-4">❤️</div>
                   <p className="text-gray-500 mb-4">收藏夹为空</p>
                   <Link
-                    href="/products"
+                    href="/shop/products"
                     className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                   >
                     去逛逛

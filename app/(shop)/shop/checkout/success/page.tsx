@@ -47,13 +47,13 @@ function CheckoutSuccessContent() {
 
           <div className="space-y-3">
             <Link
-              href="/account?tab=orders"
+              href="/shop/account?tab=orders"
               className="block w-full px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
             >
               查看订单
             </Link>
             <Link
-              href="/products"
+              href="/shop/products"
               className="block w-full px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium"
             >
               继续购物

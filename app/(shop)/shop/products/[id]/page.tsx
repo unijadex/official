@@ -58,7 +58,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </li>
             <li>/</li>
             <li>
-              <Link href="/products" className="hover:text-gray-900">
+              <Link href="/shop/products" className="hover:text-gray-900">
                 全部商品
               </Link>
             </li>

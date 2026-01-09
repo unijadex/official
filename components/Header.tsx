@@ -21,7 +21,7 @@ export function Header() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+      router.push(`/shop/products?search=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -59,7 +59,7 @@ export function Header() {
           {/* Right Icons */}
           <div className="flex items-center space-x-6">
             <Link
-              href="/account"
+              href="/shop/account"
               className="hidden md:flex flex-col items-center text-gray-700 hover:text-blue-600 transition-colors"
             >
               <UserIcon className="h-6 w-6" />
@@ -67,7 +67,7 @@ export function Header() {
             </Link>
 
             <Link
-              href="/cart"
+              href="/shop/cart"
               className="flex flex-col items-center text-gray-700 hover:text-blue-600 transition-colors relative"
             >
               <ShoppingCartIcon className="h-6 w-6" />
@@ -93,7 +93,7 @@ export function Header() {
           <ul className="flex items-center space-x-8 py-3">
             <li>
               <Link
-                href="/"
+                href="/shop"
                 className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               >
                 首页
@@ -102,7 +102,7 @@ export function Header() {
             {categories.map((category) => (
               <li key={category.id}>
                 <Link
-                  href={`/products?category=${category.id}`}
+                  href={`/shop/products?category=${category.id}`}
                   className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   <span>{category.icon}</span>
@@ -141,7 +141,7 @@ export function Header() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/"
+                  href="/shop"
                   className="block px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-700 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -150,7 +150,7 @@ export function Header() {
               </li>
               <li>
                 <Link
-                  href="/products"
+                  href="/shop/products"
                   className="block px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-700 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -160,7 +160,7 @@ export function Header() {
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link
-                    href={`/products?category=${category.id}`}
+                    href={`/shop/products?category=${category.id}`}
                     className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-700"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -171,7 +171,7 @@ export function Header() {
               ))}
               <li>
                 <Link
-                  href="/account"
+                  href="/shop/account"
                   className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50 text-gray-700"
                   onClick={() => setIsMenuOpen(false)}
                 >
